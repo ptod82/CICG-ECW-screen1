@@ -1,15 +1,9 @@
 :root {
   --stage-width: 1920px;
   --stage-height: 1080px;
-  /* 5% action-safe inset so venue TVs do not crop the edges. */
-  --safe-x: 96px;
-  --safe-y: 54px;
-  --bg: #ffffff;
-  --surface: #ffffff;
-  --line: rgba(15, 23, 42, 0.14);
-  --text: #0f172a;
-  --muted: #475569;
-  --accent: #0369a1;
+  --ink: #002d44;
+  --muted: #4c6272;
+  --right: #002d44;
 }
 
 * {
@@ -22,15 +16,15 @@ body {
   width: 100%;
   height: 100%;
   overflow: hidden;
-  background: var(--bg);
-  color: var(--text);
+  background: linear-gradient(90deg, #ffffff 0%, #002d44 100%);
+  color: var(--ink);
   font-family: "Segoe UI", system-ui, sans-serif;
   -webkit-font-smoothing: antialiased;
 }
 
 /*
-  Authored at 1920px wide. The script scales the stage to 100vw
-  and sets its height to the visible screen so the footer stays on screen.
+  Fixed 1920×1080 frame. The script scales this stage evenly
+  so a 1080p player shows it at 1:1.
 */
 .stage {
   position: absolute;
@@ -39,75 +33,247 @@ body {
   width: var(--stage-width);
   height: var(--stage-height);
   transform-origin: 0 0;
-  background: var(--surface);
+  background: #fff;
 }
 
-.safe {
-  display: flex;
-  flex-direction: column;
+.split {
+  display: grid;
+  grid-template-columns: 1fr 2fr;
   width: 100%;
   height: 100%;
-  padding: var(--safe-y) var(--safe-x);
-  gap: 32px;
 }
 
-.screen-header,
-.screen-footer {
-  display: flex;
+.panel-left {
+  display: grid;
+  grid-template-rows: auto 1fr auto;
   align-items: center;
-  justify-content: space-between;
-  flex: 0 0 auto;
+  padding: 72px 64px 72px 0;
+  background: #fff;
 }
 
-.kicker {
-  margin: 0 0 8px;
-  color: var(--accent);
-  font-size: 22px;
-  font-weight: 700;
-  letter-spacing: 0.16em;
-  text-transform: uppercase;
+.logo {
+  display: block;
+  width: 100%;
+  max-width: 460px;
+  height: auto;
 }
 
-h1 {
+.welcome-block {
+  align-self: center;
+}
+
+.welcome {
   margin: 0;
+  color: var(--ink);
   font-size: 72px;
-  line-height: 1.05;
+  line-height: 1;
+  font-weight: 700;
+  letter-spacing: -0.03em;
+}
+
+.practical {
+  margin: 24px 0 0;
+  color: var(--ink);
+  font-size: 32px;
+  line-height: 1.25;
   font-weight: 650;
 }
 
-.screen-main {
-  flex: 1 1 auto;
-  min-height: 0;
+.organizer {
+  display: block;
+  width: 240px;
+  height: auto;
+}
+
+.panel-right {
+  position: relative;
+  overflow: hidden;
+  background: var(--right);
+  color: #fff;
+}
+
+.globe {
+  position: absolute;
+  inset: 0;
+  width: 100%;
+  height: 100%;
+}
+
+.topbar {
+  position: absolute;
+  z-index: 2;
+  top: 72px;
+  right: 0;
+  left: 72px;
   display: grid;
-  grid-template-columns: 1.4fr 1fr;
-  gap: 32px;
-  overflow: auto;
+  grid-template-columns: repeat(3, 1fr);
+  align-items: stretch;
+  gap: 20px;
+  pointer-events: none;
 }
 
-.panel {
-  min-height: 0;
-  padding: 40px;
-  border: 1px solid var(--line);
-  border-radius: 28px;
-  background: #f8fafc;
+.box {
+  display: flex;
+  align-items: flex-start;
+  justify-content: center;
+  min-width: 0;
+  padding: 16px 18px;
+  border-radius: 18px;
+  background: #fff;
+  color: var(--ink);
+  text-align: center;
+  box-shadow: 0 18px 50px rgba(0, 0, 0, 0.28);
 }
 
-h2 {
-  margin: 0 0 16px;
+.box-label strong {
+  display: block;
+  margin-top: 18px;
   font-size: 40px;
+  font-weight: 700;
+  letter-spacing: -0.03em;
+  line-height: 1;
+}
+
+.box-label {
+  margin: 0;
+  font-size: 22px;
+  font-weight: 650;
+  letter-spacing: -0.01em;
+}
+
+.box-countries {
+  flex-direction: column;
+  align-items: center;
+  justify-content: flex-start;
+}
+
+.box-count {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  width: 92px;
+  height: 92px;
+  margin: 18px 0 0;
+  border-radius: 50%;
+  background: #e6e8eb;
+  font-size: 46px;
+  font-weight: 700;
+  letter-spacing: -0.03em;
+  line-height: 1;
+}
+
+
+.stats {
+  display: grid;
+  justify-items: stretch;
+  width: 100%;
+  text-align: center;
+}
+
+.share {
+  width: 100%;
+  margin-top: 16px;
+}
+
+.share-bar {
+  display: flex;
+  height: 16px;
+  overflow: hidden;
+  border-radius: 999px;
+}
+
+.share-girls,
+.share-male {
+  width: 50%;
+}
+
+.share-girls {
+  background: #f3b183;
+}
+
+.share-male {
+  background: #7eb6e0;
+}
+
+.share-key {
+  display: flex;
+  justify-content: center;
+  gap: 14px;
+  margin: 8px 0 0;
+  color: var(--ink);
+  font-size: 18px;
+}
+
+.share-key span {
+  display: inline-flex;
+  align-items: center;
+  gap: 8px;
+}
+
+.swatch {
+  width: 12px;
+  height: 12px;
+  border-radius: 4px;
+}
+
+.swatch-girls {
+  background: #f3b183;
+}
+
+.swatch-male {
+  background: #7eb6e0;
+}
+
+.popup {
+  align-items: flex-start;
+  justify-content: flex-start;
+  text-align: center;
+}
+
+.popup-country[hidden],
+.popup-gap[hidden] {
+  display: none;
+}
+
+.popup-country,
+.popup-gap {
+  width: 100%;
+}
+
+.popup-country .box-label strong{
+  color: #e85d04;
+  margin-top: 35px;
+}
+
+.popup-country .box-label #popup-value {
+  color: #333;
+}
+
+.popup-gap {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 10px 16px;
+  align-content: start;
+  justify-items: stretch;
+  text-align: center;
+}
+
+.gap-line {
+  margin: 0;
+  font-size: 15px;
   line-height: 1.15;
   font-weight: 650;
 }
 
-p {
-  margin: 0;
-  max-width: 36ch;
-  color: var(--muted);
-  font-size: 32px;
-  line-height: 1.35;
+.gap-line-wide {
+  grid-column: 1 / -1;
 }
 
-.screen-footer {
-  color: var(--muted);
-  font-size: 24px;
+.gap-line strong {
+  display: block;
+  margin-bottom: 2px;
+  font-size: 26px;
+  font-weight: 700;
+  letter-spacing: -0.03em;
+  line-height: 1;
 }

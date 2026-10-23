@@ -8,40 +8,72 @@
 </head>
 <body>
   <div class="stage" id="stage">
-    <div class="safe">
-      <header class="screen-header">
-        <div>
-          <p class="kicker">Hope Starts Here</p>
-          <h1>Education Cannot Wait</h1>
+    <div class="split">
+      <section class="panel-left">
+        <img class="logo" src="images/hsh-logo.png" alt="Hope Starts Here">
+        <div class="welcome-block">
+          <p class="welcome">Welcome</p>
+          <p class="practical">Thursday 5 November 2026<br>CICG, Geneva</p>
         </div>
-      </header>
+        <img class="organizer" src="images/ecw-logo.png" alt="Education Cannot Wait">
+      </section>
 
-      <main class="screen-main">
-        <section class="panel">
-          <h2>Replenishment campaign</h2>
-          <p>See More</p>
-        </section>
-        <section class="panel">
-          <h2>Programme</h2>
-          <p>Dolor sit amet.</p>
-        </section>
-      </main>
-
-      <footer class="screen-footer">
-        <span>Footer</span>
-      </footer>
+      <section class="panel-right">
+        <canvas class="globe" id="globe" aria-hidden="true"></canvas>
+        <div class="topbar">
+          <div class="box">
+            <div class="stats">
+              <p class="box-label">Total children reached: <strong>16.1 Million</strong></p>
+              <div class="share" aria-label="50% girls, 50% male">
+                <div class="share-bar">
+                  <span class="share-girls"></span>
+                  <span class="share-male"></span>
+                </div>
+                <p class="share-key">
+                  <span><i class="swatch swatch-girls"></i>50% girls</span>
+                  <span><i class="swatch swatch-male"></i>50% male</span>
+                </p>
+              </div>
+            </div>
+          </div>
+          <div class="box box-countries">
+            <p class="box-label">Reached Countries</p>
+            <p class="box-count">44</p>
+          </div>
+          <aside class="box popup" id="popup">
+            <div class="popup-country" id="popup-country" hidden>
+              <p class="box-label">Children reached by ECW <strong><span id="popup-name">Ukraine</span>: <span id="popup-value">4.3 M</span></strong></p>
+            </div>
+            <div class="popup-gap" id="popup-gap">
+              <p class="gap-line"><strong>258M</strong> children &amp; adolescents affected</p>
+              <p class="gap-line"><strong>93M</strong> completely out of school</p>
+              <p class="gap-line gap-line-wide"><strong>$600M</strong> replenishment ask</p>
+            </div>
+          </aside>
+        </div>
+      </section>
     </div>
   </div>
 
+  <script src="data/countries-110m.js"></script>
+  <script src="js/globe.js"></script>
   <script>
     (function () {
       var stage = document.getElementById("stage");
       var width = 1920;
+      var height = 1080;
 
       function fit() {
-        var scale = window.innerWidth / width;
-        stage.style.height = (window.innerHeight / scale) + "px";
-        stage.style.transform = "scale(" + scale + ")";
+        var scale = Math.min(window.innerWidth / width, window.innerHeight / height);
+        var x = (window.innerWidth - width * scale) / 2;
+        var y = (window.innerHeight - height * scale) / 2;
+        stage.style.transform = "translate(" + x + "px, " + y + "px) scale(" + scale + ")";
+        var left = (x / window.innerWidth) * 100;
+        var right = ((x + width * scale) / window.innerWidth) * 100;
+        var gradient = "linear-gradient(90deg, #ffffff 0%, #ffffff " + left + "%, #002d44 " + right + "%, #002d44 100%)";
+        document.documentElement.style.background = gradient;
+        document.body.style.background = gradient;
+        window.dispatchEvent(new Event("stage-fit"));
       }
 
       window.addEventListener("resize", fit);
