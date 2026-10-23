@@ -11,7 +11,7 @@
       /* 5% action-safe inset so venue TVs do not crop the edges. */
       --safe-x: 96px;
       --safe-y: 54px;
-      --bg: #070b12;
+      --bg: #ffffff;
       --surface: #121a27;
       --line: rgba(255, 255, 255, 0.14);
       --text: #f4f7fb;
@@ -36,8 +36,8 @@
     }
 
     /*
-      Authored at 1920×1080. The script scales this stage to fit
-      720p, 1080p, 4K, and any other 16:9 or non-16:9 TV.
+      Authored at 1920×1080. The script scales this stage to 100vw
+      on 720p, 1080p, 4K, and any other TV width.
     */
     .stage {
       position: absolute;
@@ -127,14 +127,14 @@
       <header class="screen-header">
         <div>
           <p class="kicker">Hope Starts Here</p>
-          <h1>Education cannot wait</h1>
+          <h1>Education Cannot Wait</h1>
         </div>
       </header>
 
       <main class="screen-main">
         <section class="panel">
           <h2>Replenishment campaign</h2>
-          <p>Lorem ipsum</p>
+          <p>See More</p>
         </section>
         <section class="panel">
           <h2>Programme</h2>
@@ -155,10 +155,10 @@
       var height = 1080;
 
       function fit() {
-        var scale = Math.min(window.innerWidth / width, window.innerHeight / height);
-        var x = (window.innerWidth - width * scale) / 2;
-        var y = (window.innerHeight - height * scale) / 2;
-        stage.style.transform = "translate(" + x + "px, " + y + "px) scale(" + scale + ")";
+        var scale = window.innerWidth / width;
+        var scaledHeight = height * scale;
+        var y = Math.max(0, (window.innerHeight - scaledHeight) / 2);
+        stage.style.transform = "translate(0px, " + y + "px) scale(" + scale + ")";
       }
 
       window.addEventListener("resize", fit);
