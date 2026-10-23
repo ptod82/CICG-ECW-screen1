@@ -1,0 +1,113 @@
+:root {
+  --stage-width: 1920px;
+  --stage-height: 1080px;
+  /* 5% action-safe inset so venue TVs do not crop the edges. */
+  --safe-x: 96px;
+  --safe-y: 54px;
+  --bg: #ffffff;
+  --surface: #ffffff;
+  --line: rgba(15, 23, 42, 0.14);
+  --text: #0f172a;
+  --muted: #475569;
+  --accent: #0369a1;
+}
+
+* {
+  box-sizing: border-box;
+}
+
+html,
+body {
+  margin: 0;
+  width: 100%;
+  height: 100%;
+  overflow: hidden;
+  background: var(--bg);
+  color: var(--text);
+  font-family: "Segoe UI", system-ui, sans-serif;
+  -webkit-font-smoothing: antialiased;
+}
+
+/*
+  Authored at 1920px wide. The script scales the stage to 100vw
+  and sets its height to the visible screen so the footer stays on screen.
+*/
+.stage {
+  position: absolute;
+  left: 0;
+  top: 0;
+  width: var(--stage-width);
+  height: var(--stage-height);
+  transform-origin: 0 0;
+  background: var(--surface);
+}
+
+.safe {
+  display: flex;
+  flex-direction: column;
+  width: 100%;
+  height: 100%;
+  padding: var(--safe-y) var(--safe-x);
+  gap: 32px;
+}
+
+.screen-header,
+.screen-footer {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  flex: 0 0 auto;
+}
+
+.kicker {
+  margin: 0 0 8px;
+  color: var(--accent);
+  font-size: 22px;
+  font-weight: 700;
+  letter-spacing: 0.16em;
+  text-transform: uppercase;
+}
+
+h1 {
+  margin: 0;
+  font-size: 72px;
+  line-height: 1.05;
+  font-weight: 650;
+}
+
+.screen-main {
+  flex: 1 1 auto;
+  min-height: 0;
+  display: grid;
+  grid-template-columns: 1.4fr 1fr;
+  gap: 32px;
+  overflow: auto;
+}
+
+.panel {
+  min-height: 0;
+  padding: 40px;
+  border: 1px solid var(--line);
+  border-radius: 28px;
+  background: #f8fafc;
+}
+
+h2 {
+  margin: 0 0 16px;
+  font-size: 40px;
+  line-height: 1.15;
+  font-weight: 650;
+}
+
+p {
+  margin: 0;
+  max-width: 36ch;
+  color: var(--muted);
+  font-size: 32px;
+  line-height: 1.35;
+}
+
+.screen-footer {
+  color: var(--muted);
+  font-size: 24px;
+}
