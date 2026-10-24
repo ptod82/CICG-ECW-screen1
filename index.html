@@ -5,6 +5,14 @@
   <meta name="viewport" content="width=device-width, initial-scale=1">
   <title>CICG Screen</title>
   <link rel="stylesheet" href="css/styles.css">
+  <script>
+    (function () {
+      var r = new URLSearchParams(location.search).get("r");
+      if (!r) return;
+      var link = document.querySelector("link[rel='stylesheet']");
+      if (link) link.href = "css/styles.css?r=" + encodeURIComponent(r);
+    })();
+  </script>
 </head>
 <body>
   <div class="stage" id="stage">
@@ -55,8 +63,15 @@
     </div>
   </div>
 
-  <script src="data/countries-110m.js"></script>
-  <script src="js/globe.js"></script>
+  <script>
+    (function () {
+      var r = new URLSearchParams(location.search).get("r");
+      var q = r ? "?r=" + encodeURIComponent(r) : "";
+      document.write('<script src="data/countries-110m.js' + q + '"><\/script>');
+      document.write('<script src="js/globe.js' + q + '"><\/script>');
+      document.write('<script src="js/refresh.js' + q + '"><\/script>');
+    })();
+  </script>
   <script>
     (function () {
       var stage = document.getElementById("stage");
@@ -74,6 +89,13 @@
         document.documentElement.style.background = gradient;
         document.body.style.background = gradient;
         window.dispatchEvent(new Event("stage-fit"));
+      }
+
+      var rev = new URLSearchParams(location.search).get("r");
+      if (rev) {
+        document.querySelectorAll("img").forEach(function (img) {
+          img.src = img.getAttribute("src").split("?")[0] + "?r=" + encodeURIComponent(rev);
+        });
       }
 
       window.addEventListener("resize", fit);
