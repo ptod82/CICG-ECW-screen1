@@ -1,13 +1,13 @@
 (function () {
   var FEATURED = {
-    Ukraine: "4.3 M",
-    Afghanistan: "11.7 M",
-    Nigeria: "12.7 M",
-    Bangladesh: "8 M",
-    Ethiopia: "22.4 M",
-    Peru: "3.9 M",
-    Brazil: "17.2 M",
-    Indonesia: "3.4 M"
+    Ukraine: "4.3M",
+    Afghanistan: "11.7M",
+    Nigeria: "12.7M",
+    Bangladesh: "8M",
+    Ethiopia: "22.4M",
+    Peru: "3.9M",
+    Brazil: "17.2M",
+    Indonesia: "3.4M"
   };
   var CENTER_LAT = 20;
   var SHOW_LON = 16;
@@ -18,7 +18,7 @@
   var ACTIVE = "#ff7a3c";
 
   var canvas = document.getElementById("globe");
-  var popup = document.getElementById("popup");
+  var panel = document.getElementById("panel-right");
   var popupName = document.getElementById("popup-name");
   var popupValue = document.getElementById("popup-value");
   var ctx = canvas.getContext("2d");
@@ -139,9 +139,9 @@
     var ratio = 2;
     canvas.width = Math.max(1, Math.round(width * ratio));
     canvas.height = Math.max(1, Math.round(height * ratio));
-    radius = Math.min(width, height) * 0.36 * ratio;
+    radius = Math.min(width, height) * 0.32 * ratio;
     originX = canvas.width * 0.5;
-    originY = canvas.height * 0.64;
+    originY = canvas.height * 0.63;
   }
 
   function screenPoint(point) {
@@ -240,11 +240,15 @@
     });
   }
 
+  function setGap(on) {
+    panel.classList.toggle("is-gap", on);
+  }
+
   function showGap() {
     shown = null;
     mode = "gap";
     document.getElementById("popup-country").hidden = true;
-    document.getElementById("popup-gap").hidden = false;
+    setGap(true);
   }
 
   function showPopup(country, now) {
@@ -254,7 +258,7 @@
     popupName.textContent = country.name;
     popupValue.textContent = country.value;
     document.getElementById("popup-country").hidden = false;
-    document.getElementById("popup-gap").hidden = true;
+    setGap(false);
   }
 
   function updatePopup(rot, now) {

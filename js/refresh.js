@@ -8,7 +8,11 @@
     "js/refresh.js",
     "data/countries-110m.js",
     "images/hsh-logo.png",
-    "images/ecw-logo.png"
+    "images/ecw-logo.png",
+    "fonts/barlow-latin-600.woff2",
+    "fonts/barlow-latin-ext-600.woff2",
+    "fonts/barlow-latin-700.woff2",
+    "fonts/barlow-latin-ext-700.woff2"
   ];
 
   var snapshot = null;
